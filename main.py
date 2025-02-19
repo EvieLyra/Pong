@@ -13,8 +13,9 @@ LPINK = (255,209,220)
 LBROWN = (196,164,132)
 
 # Open window.
-size = (700, 500)
-screen = pygame.display.set_mode(size)
+WIDTH = 700
+HEIGHT = 500
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pong")
 
 paddleA = Paddle(LBROWN, 10, 100)
@@ -69,13 +70,15 @@ while carryOn:
     
 
     # Check if ball bounces against a wall
-    if ball.rect.x >= 690:
+    if ball.rect.x >= (WIDTH - 10):
         scoreA += 1
-        ball.velocity[0] = -ball.velocity[0]
+        ball.rect.x = (WIDTH/2)
+        ball.rect.y = (HEIGHT/2)
     if ball.rect.x <= 0:
         scoreB += 1
-        ball.velocity[0] = -ball.velocity[0]
-    if ball.rect.y >= 490:
+        ball.rect.x = (WIDTH/2)
+        ball.rect.y = (HEIGHT/2)
+    if ball.rect.y >= (HEIGHT - 10):
         ball.velocity[1] = -ball.velocity[1]
     if ball.rect.y < 0:
         ball.velocity[1] = -ball.velocity[1]
