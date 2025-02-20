@@ -1,8 +1,13 @@
 import pygame
 from random import randint
+
 BLACK = (0,0,0)
 LPINK = (255,209,220)
 
+WIDTH = 700
+HEIGHT = 500
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self, color, width, height):
@@ -25,3 +30,9 @@ class Ball(pygame.sprite.Sprite):
     def bounce(self):
         self.velocity[0] = -self.velocity[0]
         self.velocity[1] = randint(-8, 8)
+
+    def reset(self):
+        old = self.rect.copy()
+        self.rect.x = (WIDTH/2)
+        self.rect.y = (HEIGHT/2)
+        self.velocity[0] = -self.velocity[0]
