@@ -35,4 +35,9 @@ class Ball(pygame.sprite.Sprite):
         old = self.rect.copy()
         self.rect.x = (WIDTH/2)
         self.rect.y = (HEIGHT/2)
+        clear= old.inflate(15, 15)
+        screen.fill(LPINK, clear)
+        screen.blit(self.image, self.rect)
+        pygame.display.update([clear, self.rect])
+        pygame.time.delay(500)
         self.velocity[0] = -self.velocity[0]
