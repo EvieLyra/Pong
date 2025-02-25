@@ -11,6 +11,7 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 LPINK = (255,209,220)
 LBROWN = (196,164,132)
+DPINK = (255, 81, 81)
 
 # Define window.
 WIDTH = 700
@@ -36,12 +37,30 @@ all_sprites_list.add(paddleA)
 all_sprites_list.add(paddleB)
 all_sprites_list.add(ball)
 
+
+# Clock will control how fast the screen updates
+clock = pygame.time.Clock()
+
+def intro():
+    intro = True
+    while intro:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+        screen.fill(LPINK)
+        font = pygame.font.Font(None, 74)
+        text = font.render("Pong", 1, LBROWN)
+        screen.blit(text, (285,230))
+
+
+        pygame.display.update()
+
+        clock.tick(15)
+
 def game():
     # Continue loop, until user exists the game.
     carryOn = True
-
-    # Clock will control how fast the screen updates
-    clock = pygame.time.Clock()
 
     scoreA = 0
     scoreB = 0
@@ -101,5 +120,6 @@ def game():
 
         clock.tick(60)
 
+intro()
 game()
 pygame.quit()
