@@ -11,7 +11,10 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 LPINK = (255,209,220)
 LBROWN = (196,164,132)
-DPINK = (255, 81, 81)
+DPINK = (255, 102, 204)
+LPURPLE = (255,209,254)
+GRAY = (133,133,133)
+DBROWN = (40,26,13)
 
 # Define window.
 WIDTH = 700
@@ -41,6 +44,32 @@ all_sprites_list.add(ball)
 # Clock will control how fast the screen updates
 clock = pygame.time.Clock()
 
+def text_object(text, font):
+    textSurface = font.render(text, True, DBROWN)
+    return textSurface, textSurface.get_rect()
+
+def message(text):
+    large = pygame.font.Font(None, 115)
+    TextSurf, TextRect = text_object(text, large)
+    TextRect.center = ((WIDTH/2), (HEIGHT/2))
+    screen.blit(TextSurf, TextRect)
+    pygame.display.update()
+
+def button(msg,x,y,w,h,ic,ac):
+    mouse = pygame.mouse.get_pos()
+
+    if x+w > mouse[0] > x and y + h > mouse[1] > y:
+        pygame.draw.rect(screen, ac,(x,y,w,h))
+
+    else:
+        pygame.draw.rect(screen, ic,(x,y,w,h))
+
+    small = pygame.font.Font(None, 40)
+    textSurf, textRect = text_object(msg, small)
+    textRect.center = ((x+(w/2)), (y + (h/2))) 
+
+    screen.blit(textSurf, textRect)
+
 def intro():
     intro = True
     while intro:
@@ -49,12 +78,15 @@ def intro():
                 pygame.quit()
 
         screen.fill(LPINK)
-        font = pygame.font.Font(None, 74)
-        text = font.render("Pong", 1, LBROWN)
-        screen.blit(text, (285,230))
 
+
+        message('Pong')
+
+        button("Start!",130,375,100,50,DPINK,LPURPLE)
+        button("Quit!",470,375,100,50,DPINK,LPURPLE)
 
         pygame.display.update()
+
 
         clock.tick(15)
 
@@ -106,7 +138,7 @@ def game():
 
         # Drawing 
         screen.fill(LPINK)
-        pygame.draw.line(screen, LBROWN, [WIDTH/2, 0], [WIDTH/2, 500], 5)
+        pygame.draw.line(screen, LBROWN, [WIDTH/2, 0], [WIDTH/2, HEIGHT], 5)
 
         all_sprites_list.draw(screen)
 
