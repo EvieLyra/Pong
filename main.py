@@ -55,11 +55,15 @@ def message(text):
     screen.blit(TextSurf, TextRect)
     pygame.display.update()
 
-def button(msg,x,y,w,h,ic,ac):
+def button(msg,x,y,w,h,ic,ac,action=None):
     mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+
 
     if x+w > mouse[0] > x and y + h > mouse[1] > y:
         pygame.draw.rect(screen, ac,(x,y,w,h))
+        if click[0] == 1 and action!= None:
+            action()
 
     else:
         pygame.draw.rect(screen, ic,(x,y,w,h))
@@ -82,8 +86,8 @@ def intro():
 
         message('Pong')
 
-        button("Start!",130,375,100,50,DPINK,LPURPLE)
-        button("Quit!",470,375,100,50,DPINK,LPURPLE)
+        button("Start!",130,375,100,50,DPINK,LPURPLE,game)
+        button("Quit!",470,375,100,50,DPINK,LPURPLE,quit)
 
         pygame.display.update()
 
