@@ -44,6 +44,8 @@ all_sprites_list.add(ball)
 # Clock will control how fast the screen updates
 clock = pygame.time.Clock()
 
+pause = False
+
 def text_object(text, font):
     textSurface = font.render(text, True, DBROWN)
     return textSurface, textSurface.get_rect()
@@ -74,6 +76,30 @@ def button(msg,x,y,w,h,ic,ac,action=None):
 
     screen.blit(textSurf, textRect)
 
+def unpause():
+    global pause
+    pause = False
+
+def paused():
+    
+    while pause:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+        screen.fill(LPINK)
+
+
+        message('Paused')
+
+        button("Continue!",130,375,150,50,DPINK,LPURPLE,unpause)
+        button("Quit!",470,375,100,50,DPINK,LPURPLE,quit)
+
+        pygame.display.update()
+
+
+        clock.tick(15)
+
 def intro():
     intro = True
     while intro:
@@ -95,6 +121,7 @@ def intro():
         clock.tick(15)
 
 def game():
+    global pause
     # Continue loop, until user exists the game.
     carryOn = True
 
@@ -110,6 +137,9 @@ def game():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x: # Pressing x will quite game.
                     carryOn = False
+                if event.key == pygame.K_SPACE:
+                    pause = True
+                    paused()
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
